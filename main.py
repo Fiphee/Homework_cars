@@ -2,8 +2,8 @@ import os
 import json
 import shutil 
 
-if os.path.isdir('output'):
-    shutil.rmtree('output')
+if os.path.isdir('output_data'):
+    shutil.rmtree('output_data')
 
 vehicles = []
 header = []
@@ -56,27 +56,27 @@ for indx, x in enumerate(vehicles):
         brands[brand] = [brand_car_info]
 
 # Create categorized output
-os.mkdir('output')
-with open('output\\slow_cars.json', 'w') as json_file:
+os.mkdir('output_data')
+with open('output_data\\slow_cars.json', 'w') as json_file:
     json_file.write(json.dumps(slow_cars))
 
-with open('output\\fast_cars.json', 'w') as json_file:
+with open('output_data\\fast_cars.json', 'w') as json_file:
     json_file.write(json.dumps(fast_cars))
 
-with open('output\\sport_cars.json', 'w') as json_file:
+with open('output_data\\sport_cars.json', 'w') as json_file:
     json_file.write(json.dumps(sport_cars))
 
-with open('output\\cheap_cars.json', 'w') as json_file:
+with open('output_data\\cheap_cars.json', 'w') as json_file:
     json_file.write(json.dumps(cheap_cars))
 
-with open('output\\medium_cars.json', 'w') as json_file:
+with open('output_data\\medium_cars.json', 'w') as json_file:
     json_file.write(json.dumps(medium_cars))
 
-with open('output\\expensive_cars.json', 'w') as json_file:
+with open('output_data\\expensive_cars.json', 'w') as json_file:
     json_file.write(json.dumps(expensive_cars))
 
 for brand in brands:
-    with open(f'output\\{brand}.json', 'w') as brand_file:
+    with open(f'output_data\\{brand}.json', 'w') as brand_file:
         brand_file.write(json.dumps(brands[brand]))
     
 print('Data categorization complete!')
