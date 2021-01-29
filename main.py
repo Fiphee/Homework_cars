@@ -7,12 +7,12 @@ if os.path.isdir('output_data'):
 
 vehicles = []
 header = []
-slow_cars = {}
-fast_cars = {}
-sport_cars = {}
-cheap_cars = {}
-medium_cars = {}
-expensive_cars = {}
+slow_cars = []
+fast_cars = []
+sport_cars = []
+cheap_cars = []
+medium_cars = []
+expensive_cars = []
 cars = {}
 brands = {}
 
@@ -35,48 +35,48 @@ for indx, x in enumerate(vehicles):
     cars[car] = car_infos
     price = int(cars[car]['price']) 
     if price < 1000:
-        cheap_cars[car] = car_infos
-    elif price >= 1000 and price < 5000:
-        medium_cars[car] = car_infos
+        cheap_cars.append(car_infos)
+    elif price < 5000:
+        medium_cars.append(car_infos)
     else:
-        expensive_cars[car] = car_infos
+        expensive_cars.append(car_infos)
     hp = int(cars[car]['hp'])
     if hp < 120:
-        slow_cars[car] = car_infos
-    elif hp >= 120 and hp < 180:
-        fast_cars[car] = car_infos
+        slow_cars.append(car_infos)
+    elif hp < 180:
+        fast_cars.append(car_infos)
     else:
-        sport_cars[car] = car_infos
-    brand_car_info = {key:value for key, value in car_infos.items() if key != 'brand'}
+        sport_cars.append(car_infos)
+
     if brand in brands:
         car_list = brands[brand]
-        car_list.append(brand_car_info)
+        car_list.append(car_infos)
         brands[brand] = car_list
     else:
-        brands[brand] = [brand_car_info]
+        brands[brand] = [car_infos]
 
 # Create categorized output
 os.mkdir('output_data')
-with open('output_data\\slow_cars.json', 'w') as json_file:
+with open(os.path.join('output_data', 'slow_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(slow_cars))
 
-with open('output_data\\fast_cars.json', 'w') as json_file:
+with open(os.path.join('output_data','fast_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(fast_cars))
 
-with open('output_data\\sport_cars.json', 'w') as json_file:
+with open(os.path.join('output_data', 'sport_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(sport_cars))
 
-with open('output_data\\cheap_cars.json', 'w') as json_file:
+with open(os.path.join('output_data','cheap_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(cheap_cars))
 
-with open('output_data\\medium_cars.json', 'w') as json_file:
+with open(os.path.join('output_data','medium_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(medium_cars))
 
-with open('output_data\\expensive_cars.json', 'w') as json_file:
+with open(os.path.join('output_data','expensive_cars.json'), 'w') as json_file:
     json_file.write(json.dumps(expensive_cars))
 
 for brand in brands:
-    with open(f'output_data\\{brand}.json', 'w') as brand_file:
+    with open(os.path.join('output_data', f'{brand}.json'), 'w') as brand_file:
         brand_file.write(json.dumps(brands[brand]))
     
 print('Data categorization complete!')
